@@ -1,0 +1,45 @@
+	<div class="container-fluid">
+	<div class="row">
+
+		<div class="col-md-12">
+			<div class="row">
+
+				<div class="col-md-12">
+
+				<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<%=property.name%>
+							</h3>
+						</div>
+						<div class="panel-body">
+
+								<div class="row">
+									<div class="col-md-5 col-xs-5">
+										<img alt="image" class="img-rounded" width="600" height="400" src="<%=property.imageurl%>">
+									</div>
+								<div class="col-md-7 col-xs-7">
+
+									<ul class="list-group">
+  										<li class="list-group-item"> <b>Estate :</b> <%=property.estate%></li>
+  										<li class="list-group-item"><b>Gross Area :</b> <%=property.garea%> sq feet</li>
+  										<li class="list-group-item"><b>Rent :</b> $<%=property.rent%></li>
+                      <li class="list-group-item"><b>Bedrooms :</b> <%=property.bedrooms%></li>
+                      <li class="list-group-item"><b>Expected Tenants :</b> <%=property.tenants%></li>
+                      <li class="list-group-item"><b>Create Date :</b> <%=property.createdAt%></li>
+                      <li class="list-group-item"><b>Updated Date :</b> <%=property.updatedAt%></li>
+									</ul>
+                  <button class="btn btn-primary btn-block">Interested</button>
+
+								</div>
+								</div>
+						</div>
+
+				</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

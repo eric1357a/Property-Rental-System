@@ -1,0 +1,15 @@
+<table class="table">
+  <% property.forEach( function(model) { %>
+  <tr><td><%=model.name%>,<%=model.estate%></td>
+    <td>
+      <a href="#">Interested Member</a>
+    </td>
+    <td>
+      <a href="/property/edit/<%=model.id%>">Edit</a>
+    </td>
+    <td>
+      <a href="/property/delete/<%=model.id%>">Delete</a>
+    </td>
+  </tr>
+  <% }); %>
+</table>
