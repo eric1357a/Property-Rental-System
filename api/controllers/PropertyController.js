@@ -74,6 +74,15 @@ module.exports = {
           "<br /><a href='/property/admin'> Click here to go back</a>");
       }
     });
+  },
+  interested: function (req, res) {
+    Property.findOne(req.params.id).populateAll().exec(function (err, property) {
+
+      return res.view('property/interested', {'property': property});
+      // return res.json(property);
+
+    })
   }
+
 };
 

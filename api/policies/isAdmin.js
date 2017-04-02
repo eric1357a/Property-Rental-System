@@ -1,6 +1,6 @@
 module.exports = function(req, res, next) {
 
-  if (req.session.username == 'eric') {
+  if (req.session.username == 'admin') {
     return next(); //proceed to the next policy,
   }
 

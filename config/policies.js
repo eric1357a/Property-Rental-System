@@ -25,8 +25,7 @@ module.exports.policies = {
   * access)                                                                  *
   *                                                                          *
   ***************************************************************************/
-  PropertyController:
-    {  create: 'isAdmin',edit: 'isAdmin', admin: 'isAdmin', delete: 'isAdmin'}
+  PropertyController: {create: 'isAdmin', edit: 'isAdmin', admin: 'isAdmin', delete: 'isAdmin', interested: 'isAdmin'}
 
   // '*': true,
 

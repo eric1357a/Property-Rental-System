@@ -8,7 +8,10 @@
 module.exports = {
 
   attributes: {
-
+    interest: {
+      collection: 'Member',
+      via: 'interested'
+    }
   }
 };
 

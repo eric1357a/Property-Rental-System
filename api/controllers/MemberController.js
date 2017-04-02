@@ -46,6 +46,31 @@ module.exports = {
       req.session.username = null;
       return res.redirect('property/index');
     }
+  },
+  addinterested: function (req, res) {
+
+    Member.findOne(req.params.id).exec(function (err, model) {
+
+      if (model !== null) {
+        res.json(model);
+        /*
+         console.log(req.params.id);
+         console.log(res.json(model.interested));
+         model.interested.add(req.params.id)
+         model.save( function (err, model) {
+
+         if (err) return res.send("Already added");
+
+         return res.send("Interested added.");
+         *
+         });
+         }
+         else {
+         return res.send("Property not found!");
+
+         */
+      }
+    });
   }
 };
 

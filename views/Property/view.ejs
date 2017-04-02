@@ -29,7 +29,12 @@
                       <li class="list-group-item"><b>Create Date :</b> <%=property.createdAt%></li>
                       <li class="list-group-item"><b>Updated Date :</b> <%=property.updatedAt%></li>
 									</ul>
-                  <button class="btn btn-primary btn-block">Interested</button>
+                  <% if (session.username != null){ %>
+                  <ul class="nav navbar-nav">
+                    <a href="/member/addinterested/<%= property.id %>" class="btn btn-primary btn-block" role="button">Interested</a>
+                  </ul>
+                  <% } %>
+
 
 								</div>
 								</div>

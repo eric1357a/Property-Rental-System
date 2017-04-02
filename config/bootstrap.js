@@ -66,11 +66,27 @@ module.exports.bootstrap = function(cb) {
 
   };
   Property.create(property).exec( function(err,model){});
-  Member.create(member).exec( function(err,model){});
   var member = {
-    "username": "eric",
+    "username": "admin",
     "password": 123456,
   };
   Member.create(member).exec( function(err,model){});
+  member = {
+    "username": "eric",
+    "password": 123456,
+  };
+  Member.create(member).exec(function (err, model) {
+    model.interested.add(1);
+    model.interested.add(2);
+    model.save();
+  });
+  member = {
+    "username": "sally",
+    "password": 123456,
+  };
+  Member.create(member).exec(function (err, model) {
+    model.interested.add(1);
+    model.save();
+  });
   cb();
 };
