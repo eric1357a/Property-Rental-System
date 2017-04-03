@@ -1,82 +1,86 @@
-<div class="container-fluid">
-  <div class="row">
+<div style="float:right" class="col-lg-5 ">
+  <% var current = req.query.page %>
+  <nav>
+    <ul class="pagination">
+      <li>
 
-    <div class="col-md-6">
-      <div class="row">
-        <% property.forEach(function(model){%>
-        <div class="col-md-12" style="float:left">
+        <a
+          href="search?estate=<%= req.query.estate %>&bedrooms=<%= req.query.bedrooms %>&page=<%= Math.max(current - 1, 1) %>"
+          aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
 
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                <%=model.name%>
-              </h3>
-            </div>
-            <div class="panel-body">
+      <% for(i = 1;i <= count;i++){ %>
+      <li><a
+          href="search?estate=<%= req.query.estate %>&bedrooms=<%= req.query.bedrooms %>&page=<%= i %>"> <%= i %> </a>
+      </li>
+      <% } %>
 
-              <div class="row">
-                <div class="col-md-3 col-xs-3">
-                  <img alt="image" class="img-rounded" width="150" height="150" src="<%=model.imageurl%>">
-                </div>
-                <div class="col-md-9 col-xs-9">
+      <li>
+        <a
+          href="search?estate=<%= req.query.estate %>&bedrooms=<%= req.query.bedrooms %>&page=<%= Math.min(current * 1 + 1, count) %>"
+          aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
 
+    </ul>
+  </nav>
+  <br>
+
+  <div id="" class="row col-lg-12 ">
+    <h2>Property Search Form</h2><Br>
+    <label>Estate</label> <Br>
+    <form action="/property/search" method="GET">
+      <select class="form-control" name="estate">
+        <option value="">Show All</option>
+        <option>Festival City</option>
+        <option>Royal Ascot</option>
+        <option>City One</option>
+      </select>
+      <br>
+      <label>Bedrooms</label>
+      <input class="form-control" name="bedrooms" type="text" value=""><br>
+      <button class="form col-md-4 col-md-offset-4" type="submit" value="SEARCH">Search</button>
+    </form>
+  </div>
+</div><br>
+
+
+<br>
+<div class="col-lg-offset-1 col-lg-6 col-lg-offset-1">
+  <% property.forEach( function(model) { %>
+  <div class=" col-lg-12 col-md-12 col-sm-12">
+    <li class="list-group-item">
+      <div>
+        <ul class="list-group">
+          <li class="list-group-item" style="border-radius:0;background-color:#eee"><strong><a
+                href="/property/view/<%= model.id %>"><%= model.name %></a></strong></li>
+        </ul>
+        <div class="row">
+          <table style="width:100%">
+            <tr>
+              <td style="width:25%"><img src="<%= model.imageurl %>" style=" width:100%;margin-left:10px"
+                                         class="img-rounded"></td>
+              <td class="col-sm-8 col-md-9 col-lg-9" style="width:75%">
+                <div>
                   <ul class="list-group">
-                    <li class="list-group-item"> <b>Estate :</b> <%=model.estate%></li>
-                    <li class="list-group-item"><b>Gross Area :</b> <%=model.garea%> sq feet</li>
-                    <li class="list-group-item"><b>Rent :</b> $<%=model.rent%></li>
+                    <li class="list-group-item"><strong>Estate: </strong><%= model.estate %></li>
+                    <li class="list-group-item"><strong>Gross Area: </strong><%= model.garea %> sq feet</li>
+                    <li class="list-group-item"><strong>Rent:</strong> $<%= model.rent %></li>
                   </ul>
-
                 </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        <%})%>
-        </div>
-        </div>
-
-
-        <div class="col-md-6" style="float:right">
-
-          <ul class="pagination">
-            <li><a href="#"><<</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">>></a></li>
-                    </ul>
-          <h2 class="col-sm-offset-1">Property Search Form</h2>
-
-          <form action="/property/search" method="POST" class="form-horizontal">
-
-            <div class="form-group">
-              <label class="control-label col-sm-2">Estate: </label>
-              <div class="col-sm-8">
-                <select class="form-control" name="estate">
-                  <option>Festival City</option>
-                  <option>Royal Ascot</option>
-                  <option>City One</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label col-sm-2">Bedrooms: </label>
-              <div class="col-sm-8">
-                <input class="form-control" name="bedroom" type="text" required>
-              </div>
-            </div>
-            <button class="btn btn-default col-sm-offset-2" type="submit" value="ADD">Submit</button>
-          </form>
-</div>>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
-    
-
+    </li>
   </div>
+  <% }); %>
+
 </div>
+
+
+

@@ -7,33 +7,35 @@
 
 
 module.exports = {
-	index: function(req,res){
-		return res.send("It is the default page of member");
-	},
-	register: function(req,res){
-		if(req.method == "POST"){
-			Member.create(req.body.member).exec( function(err,member){
-				return res.view('/member/login');
-			});
-		}else{
-		  return res.view('member/register');
+  index: function (req, res) {
+    return res.send("It is the default page of member");
+  },
+  register: function (req, res) {
+    if (req.method == "POST") {
+      Member.create(req.body.member).exec(function (err, member) {
+        return res.send("Register Success" +
+          "<br /><a href='/member/login'> Click here to login</a>");
+      });
+    } else {
+      return res.view('member/register');
     }
-	},
+  },
   login: function (req, res) {
 
     if (req.method == "GET")
       return res.view('member/login');
     else {
 
-      Member.findOne({username:req.body.username})
-        .exec( function (err, user) {
+      Member.findOne({username: req.body.username})
+        .exec(function (err, user) {
 
           if (user == null)
             return res.send("No such user" +
               "<br /><a href='/member/login'> Click here to go back</a>");
 
           if (user.password != req.body.password)
-            return res.send("Wrong Password");
+            return res.send("Wrong Password" +
+              "<br /><a href='/member/login'> Click here to go back</a>");
 
           req.session.username = req.body.username;
           req.session.userid = user.id;
@@ -42,39 +44,35 @@ module.exports = {
 
     }
   },
-  logout: function(req,res){
-	  if(req.session.username !=null ){
+  logout: function (req, res) {
+    if (req.session.username != null) {
       req.session.username = null;
       return res.redirect('property/index');
-    } else {return res.redirect('property/index');}
+    } else {
+      return res.redirect('property/index');
+    }
   },
   addinterested: function (req, res) {
     Member.findOne(req.body.Interest.userid).populateAll().exec(function (err, model) {
 
       if (model !== null) {
         //res.json(model);
-         
-         model.interested.add(req.body.Interest.proid);
-         model.save( function (err, model) {
 
-         if (err) return res.send("Already added"+
-          "<br /><a href='/property/index'> Click here to go back</a>");
+        model.interested.add(req.body.Interest.proid);
+        model.save(function (err, model) {
 
-         return res.send("Interested added."+
-          "<br /><a href='/property/index'> Click here to go back</a>");
-         });
-         }
-         else {
-         return res.send("Property not found!");
+          if (err) return res.send("Already added" +
+            "<br /><a href='/property/index'> Click here to go back</a>");
 
-         
+          return res.send("Interested added." +
+            "<br /><a href='/property/index'> Click here to go back</a>");
+        });
       }
-    }); 
-  },
-  json: function(req, res) {
-    Member.findOne(req.params.id).populateAll().exec(function (err, model) {
+      else {
+        return res.send("Property not found!");
 
-      return res.json(model);
+
+      }
     });
   }
 };

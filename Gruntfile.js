@@ -12,7 +12,7 @@
  * Check out the `tasks` directory instead.
  */
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
 
   // Load the include-all library in order to require all of our grunt
@@ -44,10 +44,10 @@ module.exports = function(grunt) {
    */
   function loadTasks(relPath) {
     return includeAll({
-      dirname: require('path').resolve(__dirname, relPath),
-      filter: /(.+)\.js$/,
-      excludeDirs: /^\.(git|svn)$/
-    }) || {};
+        dirname: require('path').resolve(__dirname, relPath),
+        filter: /(.+)\.js$/,
+        excludeDirs: /^\.(git|svn)$/
+      }) || {};
   }
 
   /**
@@ -63,14 +63,13 @@ module.exports = function(grunt) {
   }
 
 
-
   // Load task functions
   var taskConfigurations = loadTasks('./tasks/config'),
     registerDefinitions = loadTasks('./tasks/register');
 
   // (ensure that a default task exists)
   if (!registerDefinitions.default) {
-    registerDefinitions.default = function(grunt) {
+    registerDefinitions.default = function (grunt) {
       grunt.registerTask('default', []);
     };
   }

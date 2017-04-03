@@ -9,7 +9,7 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.bootstrap.html
  */
 
-module.exports.bootstrap = function(cb) {
+module.exports.bootstrap = function (cb) {
 
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
@@ -25,7 +25,8 @@ module.exports.bootstrap = function(cb) {
     "createdAt": "2017-02-15T01:56:56.220Z",
     "updatedAt": "2017-02-15T01:56:56.242Z"
   };
-  Property.create(property).exec( function(err,model){});
+  Property.create(property).exec(function (err, model) {
+  });
   property = {
     "id": 2,
     "name": "2房實用，交通方便",
@@ -38,7 +39,8 @@ module.exports.bootstrap = function(cb) {
     "createdAt": "2017-02-15T01:56:56.221Z",
     "updatedAt": "2017-02-15T01:56:56.243Z"
   };
-  Property.create(property).exec( function(err,model){});
+  Property.create(property).exec(function (err, model) {
+  });
   property = {
     "id": 3,
     "name": "沙田第一城 套3房剛翻新",
@@ -51,7 +53,8 @@ module.exports.bootstrap = function(cb) {
     "createdAt": "2017-02-15T01:56:56.222Z",
     "updatedAt": "2017-02-15T01:56:56.222Z"
   };
-  Property.create(property).exec( function(err,model){});
+  Property.create(property).exec(function (err, model) {
+  });
   property = {
     "id": 4,
     "name": "平絕同區",
@@ -65,17 +68,19 @@ module.exports.bootstrap = function(cb) {
     "updatedAt": "2017-02-15T01:56:56.222Z"
 
   };
-  Property.create(property).exec( function(err,model){});
+  Property.create(property).exec(function (err, model) {
+  });
   var member = {
     "username": "admin",
     "password": 123456,
-    "id":1
+    "id": 1
   };
-  Member.create(member).exec( function(err,model){});
+  Member.create(member).exec(function (err, model) {
+  });
   member = {
     "username": "eric",
     "password": 123456,
-    "id":2
+    "id": 2
   };
   Member.create(member).exec(function (err, model) {
     model.interested.add(1);

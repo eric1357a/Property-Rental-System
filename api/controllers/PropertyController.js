@@ -6,50 +6,66 @@
  */
 
 module.exports = {
-	index: function(req,res){
-		Property.find().exec( function(err,property){
-			return res.view('property/index', {'property': property});
-		});
-	},
-	view: function(req,res){
-		Property.findOne(req.params.id).exec (function(err,property){
-			if(property !=null){
-				return res.view('property/view',{'property': property});
-			}
-			else
-				return res.send("No such property id");
-		});
-	},
-  create: function (req,res) {
-    if(req.method == "POST"){
-      Property.create(req.body.Property).exec( function(err,property){
+  index: function (req, res) {
+    Property.find().exec(function (err, property) {
+      return res.view('property/index', {'property': property});
+    });
+  },
+  view: function (req, res) {
+    Property.findOne(req.params.id).exec(function (err, property) {
+      if (property != null) {
+        return res.view('property/view', {'property': property});
+      }
+      else
+        return res.send("No such property id");
+    });
+  },
+  create: function (req, res) {
+    if (req.method == "POST") {
+      Property.create(req.body.Property).exec(function (err, property) {
         return res.send("Create success" +
           "<br /><a href='/property/index'> Click here to go back</a>");
       });
-    }else{
+    } else {
       return res.view('property/create');
     }
   },
-  search: function (req,res) {
-    Property.find().exec( function(err,property){
-      return res.view('property/search', {'property': property});
-    });
+  search: function (req, res) {
+
+    Property.find().paginate({page: req.query.page, limit: 2})
+      .where({estate: {contains: req.query.estate}})
+      .where({bedrooms: {contains: req.query.bedrooms}})
+      .exec(function (err, property) {
+        Property.count()
+          .where({estate: {contains: req.query.estate}})
+          .where({bedrooms: {contains: req.query.bedrooms}})
+          .exec(function (err, value) {
+            Property.find()
+              .sort('estate')
+              .exec(function (err, property1) {
+                var pages = Math.ceil(value / 2);
+                return res.view('property/search', {'property': property, 'property1': property1, 'count': pages});
+              })
+          })
+      });
   },
-  admin: function(req,res) {
+
+
+  admin: function (req, res) {
     Property.find().exec(function (err, property) {
       return res.view('property/admin', {'property': property});
     });
   },
-  edit: function(req, res) {
+  edit: function (req, res) {
     if (req.method == "GET") {
-      Property.findOne(req.params.id).exec( function(err, property) {
+      Property.findOne(req.params.id).exec(function (err, property) {
         if (property == null)
           return res.send("Property not found!");
         else
           return res.view('property/edit', {'property': property});
       });
     } else {
-      Property.findOne(req.params.id).exec( function(err, property) {
+      Property.findOne(req.params.id).exec(function (err, property) {
         property.name = req.body.Property.names;
         property.estate = req.body.Property.estate;
         property.bedrooms = req.body.Property.bedrooms;
@@ -63,8 +79,8 @@ module.exports = {
       });
     }
   },
-  delete: function(req, res) {
-    Property.findOne(req.params.id).exec( function(err, property) {
+  delete: function (req, res) {
+    Property.findOne(req.params.id).exec(function (err, property) {
       if (property != null) {
         property.destroy();
         return res.send("Property deleted" +
@@ -82,15 +98,6 @@ module.exports = {
       // return res.json(property);
 
     });
-  },
-  json: function(req, res) {
-    Member.findOne(req.params.id).populateAll().exec(function (err, property) {
-
-      
-     return res.json(property);
-
-    });
   }
-
 };
 
