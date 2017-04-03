@@ -81,7 +81,15 @@ module.exports = {
       return res.view('property/interested', {'property': property});
       // return res.json(property);
 
-    })
+    });
+  },
+  json: function(req, res) {
+    Member.findOne(req.params.id).populateAll().exec(function (err, property) {
+
+      
+     return res.json(property);
+
+    });
   }
 
 };

@@ -36,6 +36,7 @@ module.exports = {
             return res.send("Wrong Password");
 
           req.session.username = req.body.username;
+          req.session.userid = user.id;
           return res.redirect('property/index');
         })
 
@@ -45,31 +46,35 @@ module.exports = {
 	  if(req.session.username !=null ){
       req.session.username = null;
       return res.redirect('property/index');
-    }
+    } else {return res.redirect('property/index');}
   },
   addinterested: function (req, res) {
-
-    Member.findOne(req.params.id).exec(function (err, model) {
+    Member.findOne(req.body.Interest.userid).populateAll().exec(function (err, model) {
 
       if (model !== null) {
-        res.json(model);
-        /*
-         console.log(req.params.id);
-         console.log(res.json(model.interested));
-         model.interested.add(req.params.id)
+        //res.json(model);
+         
+         model.interested.add(req.body.Interest.proid);
          model.save( function (err, model) {
 
-         if (err) return res.send("Already added");
+         if (err) return res.send("Already added"+
+          "<br /><a href='/property/index'> Click here to go back</a>");
 
-         return res.send("Interested added.");
-         *
+         return res.send("Interested added."+
+          "<br /><a href='/property/index'> Click here to go back</a>");
          });
          }
          else {
          return res.send("Property not found!");
 
-         */
+         
       }
+    }); 
+  },
+  json: function(req, res) {
+    Member.findOne(req.params.id).populateAll().exec(function (err, model) {
+
+      return res.json(model);
     });
   }
 };

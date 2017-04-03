@@ -30,9 +30,16 @@
                       <li class="list-group-item"><b>Updated Date :</b> <%=property.updatedAt%></li>
 									</ul>
                   <% if (session.username != null){ %>
-                  <ul class="nav navbar-nav">
-                    <a href="/member/addinterested/<%= property.id %>" class="btn btn-primary btn-block" role="button">Interested</a>
-                  </ul>
+                  <form action="/member/addinterested" method="POST" class="form-horizontal">
+  <div class="form-group">  
+      <input class="form-control" name="Interest[userid]" value="<%=session.userid%>" type="hidden" >
+	  <input class="form-control" name="Interest[proid]" value="<%=property.id%>" type="hidden" >
+    <div class="col-sm-12">
+      <input class="form-control btn btn-primary btn-block" role="button" value="Interested" type="submit">
+    </div>
+  </div>
+  </form>
+                  
                   <% } %>
 
 

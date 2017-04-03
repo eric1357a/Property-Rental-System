@@ -69,11 +69,13 @@ module.exports.bootstrap = function(cb) {
   var member = {
     "username": "admin",
     "password": 123456,
+    "id":1
   };
   Member.create(member).exec( function(err,model){});
   member = {
     "username": "eric",
     "password": 123456,
+    "id":2
   };
   Member.create(member).exec(function (err, model) {
     model.interested.add(1);
@@ -83,6 +85,7 @@ module.exports.bootstrap = function(cb) {
   member = {
     "username": "sally",
     "password": 123456,
+    "id": 3
   };
   Member.create(member).exec(function (err, model) {
     model.interested.add(1);
